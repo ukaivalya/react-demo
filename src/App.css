@@ -84,3 +84,11 @@ address {
     width: 80%;
     text-align: left;
 }
+
+form {
+    text-align: left;
+}
+
+.df {
+    display: flex;
+}
