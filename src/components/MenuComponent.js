@@ -2,6 +2,7 @@ import React from 'react';
 import Card from 'react-bootstrap/Card';
 import { Link } from 'react-router-dom';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
+import DishDetail from './DishdetailComponent';
 
 function RenderMenuItem({ dish, onClick }) {
     return (

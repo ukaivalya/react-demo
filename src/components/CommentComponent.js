@@ -4,18 +4,17 @@ import { Row, Col } from 'react-bootstrap';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import { Link } from 'react-router-dom';
 import CommentForm from './CommentForm';
-import { addComment } from '../redux/ActionCreators';
 
-function RenderDish({ dish }) {
+function RenderComments({ comment }) {
     return (
         <div className='container'>
             <Row>
                 <Col className='col-md-5'>
                     <Card>
-                        <Card.Img top src={dish.image} alt={dish.name} />
                         <Card.Body>
-                            <Card.Title>{dish.name}</Card.Title>
-                            <Card.Text>{dish.description}</Card.Text>
+                            <Card.Title>{comment.rating}</Card.Title>
+                            <Card.Text>{comment.yourname}</Card.Text>
+                            <Card.Text>{comment.comment}</Card.Text>
                         </Card.Body>
                     </Card>
                 </Col>
@@ -23,26 +22,20 @@ function RenderDish({ dish }) {
         </div>
     );
 }
-const RenderComments = ({ comments, addComment, dishId }) => {
+const RenderComments = ({ comments }) => {
     const comment = comments.map((c) => {
         return (
             <ul className='list-unstyled'>
+                <li>{c.rating}</li>
+                <li>{c.yourname}</li>
                 <li>{c.comment}</li>
-                <li>
-                    --{c.author},{' '}
-                    {new Intl.DateTimeFormat('en-US', {
-                        year: 'numeric',
-                        month: 'short',
-                        day: '2-digit',
-                    }).format(new Date(Date.parse(c.date)))}
-                </li>
             </ul>
         );
     });
     return comment;
 };
 
-export default function DishDetail({ dish, comments }) {
+export default function CommentComponent({ dish, comments }) {
     console.log(comments);
     if (dish != null) {
         return (
@@ -55,22 +48,18 @@ export default function DishDetail({ dish, comments }) {
                         <Breadcrumb.Item active>{dish.name}</Breadcrumb.Item>
                     </Breadcrumb>
                     <div className='col-12'>
-                        <h3>{props.dish.name}</h3>
+                        <h3>{dish.name}</h3>
                         <hr />
                     </div>
                 </div>
                 <div className='row'>
                     <div className='col-12 col-md-5 m-1'>
-                        <RenderDish dish={props.dish} />
+                        <RenderDish dish={dish} />
                     </div>
                     <div className='col-12 col-md-5 m-1'>
-                        <RenderComments
-                            comments={props.comments}
-                            addComment={props.addComment}
-                            dishId={props.dish.id}
-                        />
+                        <RenderComments comments={comments} />
                     </div>
-                    <CommentForm dishId={dishId} addComment={addComment} />
+                    <CommentForm />
                 </div>
             </div>
         );
